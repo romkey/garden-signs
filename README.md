@@ -72,7 +72,11 @@ The printer will extrude a small amount of filament as part of the
 loading process. In my experience it then extrudes just a bit more
 after you confirm that the new filament has loaded correct and before
 resuming printing - it can be tricky removing this as the head starts
-to move, but be sure to get it or else it may interefere with the print.
+to move, but be sure to get it or else it may interefere with the
+print.
+
+Because the filament change can be annoying, consider batching up
+several signs in one print if they're using the same colors.
 
 ## Running From The Command Line
 
