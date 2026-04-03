@@ -19,11 +19,14 @@ fi
 
 mkdir -p stls
 
+echo "[generate] batch start: SPIKE_HEIGHT=${SPIKE_HEIGHT}mm  APP=${APP}  cwd=$(pwd)" >&2
+
 # usage: sign <output-slug> <display name> [extra -D flags...]
 sign() {
 	slug=$1
 	name=$2
 	shift 2
+	echo "[generate] SPIKE_HEIGHT=${SPIKE_HEIGHT}mm  building stls/${slug}-spike${SPIKE_HEIGHT}.stl  (name=${name})" >&2
 	"$APP" -o "stls/${slug}-spike${SPIKE_HEIGHT}.stl" \
 		-D "name=\"${name}\"" \
 		"$@" \
@@ -55,7 +58,7 @@ sign thyme "Thyme" -D 'scale=1.1'
 sign winter-savory "Winter Savory" -D 'scale=.6'
 
 # --- Greens / lettuce ---
-sign arugula "Arugula" -D 'scale='
+sign arugula "Arugula"
 sign collards "Collards" -D 'scale=1'
 sign endive "Endive" -D 'scale=1.1'
 sign flashy-trout "Flashy Trout" -D 'scale=0.6'
