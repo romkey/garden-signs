@@ -1,0 +1,60 @@
+# Regenerate STL exports when the generator or model source changes.
+name: Generate STLs
+
+on:
+  push:
+    paths:
+      - 'generate.sh'
+      - 'garden-signs.scad'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-stls-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install OpenSCAD
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openscad
+
+      - name: Generate STL sets (spike 90 / 180 / 270 mm)
+        run: |
+          APP="$(command -v openscad)"
+          export APP
+          SPIKE_HEIGHT=90 ./generate.sh
+          SPIKE_HEIGHT=180 ./generate.sh
+          SPIKE_HEIGHT=270 ./generate.sh
+
+      - name: Add SPDX license sidecars for new STLs
+        run: |
+          shopt -s nullglob
+          for stl in stls/*.stl; do
+            lic="${stl}.license"
+            if [ ! -f "$lic" ]; then
+              printf '%s\n' \
+                'SPDX-FileCopyrightText: 2023 John Romkey' \
+                '' \
+                'SPDX-License-Identifier: CC0-1.0' > "$lic"
+            fi
+          done
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stls/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: regenerate garden sign STLs (spike 90/180/270 mm)"
+            git push
+          fi
