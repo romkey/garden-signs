@@ -3,9 +3,6 @@ name: Generate STLs
 
 on:
   push:
-    paths:
-      - 'generate.sh'
-      - 'garden-signs.scad'
   workflow_dispatch:
 
 permissions:
