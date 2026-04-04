@@ -30,9 +30,9 @@ jobs:
         run: |
           APP="$(command -v openscad)"
           export APP
-          SPIKE_HEIGHT=90 ./generate.sh
-          SPIKE_HEIGHT=180 ./generate.sh
-          SPIKE_HEIGHT=270 ./generate.sh
+          SPIKE_HEIGHT=100 ./generate.sh
+          SPIKE_HEIGHT=150 ./generate.sh
+          SPIKE_HEIGHT=200 ./generate.sh
 
       - name: Add SPDX license sidecars for new STLs
         run: |
