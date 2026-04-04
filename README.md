@@ -17,6 +17,19 @@ do whatever's needed for the filament change and print them.
 
 ## Customizing Signs
 
+### The Easy Way - Github Does The Work
+
+1. fork the repo
+2. Go to the Actions tab on your forked repo and click the big green
+   "I understand my workflows, go ahead and enable them"
+3. make the changes you want
+  - customize the spike length, text and text size in `generate.sh`
+  - customize sign shape or font in `garden-signs.scad`
+4. commit the changes
+5. monitor the progress on the Actions tab
+
+### On Your Computer
+
 If you want to change the text or size of the signs, you'll need to
 first [install OpenSCAD](https://openscad.org/downloads.html).
 
